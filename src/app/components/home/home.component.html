@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-12 mt-4 mb-4">
+
+        <div class="row">
+            <div class="card-deck">
+                <div class="card text-center border-secondary">
+                    <div class="card-header">Opción Simple</div>
+                    <div class="card-body">
+                        <p class="card-text">Esta opción te permitirá saber si puedes o no ahorrar en tu factura
+                            de la luz de una forma sencilla y rápida, rellena los campos necesarios y calcula tu
+                            factura.</p>
+                    </div>
+                    <div class="card-footer">
+                        <button (click)="mostrarOpcion('sencillo');scroll(abajo);" class="btn btn-dark">Mostrar</button>
+                    </div>
+                </div>
+                <div class="card text-center border-secondary">
+                    <div class="card-header">Opción Completa</div>
+                    <div class="card-body">
+                        <p class="card-text">Esta opción te permitirá saber cuanto puedes ahorrar en tu factura
+                            de la luz de una forma precisa y completa, rellena los campos necesarios y calcula
+                            tu ahorro. Por ejemplo: 200€ anuales</p>
+                    </div>
+                    <div class="card-footer">
+                        <button (click)="mostrarOpcion('complejo');scroll(abajo);" class="btn btn-dark">Mostrar</button>
+                    </div>
+                </div>
+                <div class="card text-center border-secondary">
+                    <div class="card-header">Calculo con Imagen</div>
+                    <div class="card-body">
+                        <p class="card-text">Esta opción te permitirá saber cuanto puedes ahorrar en tu factura
+                            de la luz arrastrando una imagen o un archivo, nosotros analizaremos la factura y te
+                            contestaremos con un ahorro para tu factura. Por ejemplo: 200€ anuales</p>
+                    </div>
+                    <div class="card-footer">
+                        <button (click)="mostrarOpcion('imagen');scroll(abajo);" class="btn btn-dark">Mostrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="bg-light">
+        <div class="card" *ngIf="opcion != ''">
+            <div class="card-body bg-light border-dark">
+                <p id="formulario"></p>
+                <app-calculo-simple *ngIf="opcion == 'sencillo'"></app-calculo-simple>
+
+                <app-calculo-complejo *ngIf="opcion == 'complejo'"></app-calculo-complejo>
+
+                <app-calculo-imagen *ngIf="opcion == 'imagen'"></app-calculo-imagen>
+            </div>
+        </div>
+    </div>
+</div>
+<a #abajo></a>
