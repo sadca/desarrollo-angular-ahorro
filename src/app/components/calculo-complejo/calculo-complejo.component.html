@@ -1,8 +1,8 @@
 <form>
 
     <div class="form-group">
-        <label for="tarifa">Tarifa</label>
-        <select name="tarifa" class="form-control" aria-placeholder="Tarifa">
+        <label for="tarifa">{{ 'tarifa.titulo' | translate }}</label>
+        <select name="tarifa" class="form-control">
             <option>0</option>
             <option>1</option>
             <option>2</option>
@@ -12,26 +12,26 @@
     <div class="form-group">
         <div class="form-row">
             <div class="col-6">
-                <label for="precio-potencia">Precio de la Potencia</label>
+                <label for="precio-potencia">{{ 'precio.potencia' | translate }}</label>
                 <!-- Tipo Number(float) -->
                 <!-- Sacar tantas cajas como precio-potencia tenga la tarifa en la tabla -->
                 <div class="input-group mb-2">
                     <input type="number" class="form-control" id="precio-potencia" name="precio-potencia"
-                        placeholder="Precio - Potencia">
+                        placeholder="{{ 'precio.potencia' | translate }}">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">€/kW</div>
+                        <div class="input-group-text">{{ 'ekW' | translate }}</div>
                     </div>
                 </div>
             </div>
             <div class="col-6">
-                <label for="precio-potencia">Potencia contratada</label>
+                <label for="precio-potencia">{{ 'contratada.potencia' | translate }}</label>
                 <!-- Tipo Number(float) -->
                 <!-- Sacar tantas cajas como precio-potencia tenga la tarifa en la tabla -->
                 <div class="input-group mb-2">
                     <input type="number" class="form-control" id="precio-potencia" name="precio-potencia"
-                        placeholder="Potencia contratada">
+                        placeholder="{{ 'contratada.potencia' | translate }}">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">kW</div>
+                        <div class="input-group-text">{{ 'kW' | translate }}</div>
                     </div>
                 </div>
             </div>
@@ -41,26 +41,26 @@
     <div class="form-group">
         <div class="form-row">
             <div class="col-6">
-                <label for="precio-energia">Precio - Energía</label>
+                <label for="precio-energia">{{ 'precio.energia' | translate }}</label>
                 <!-- Tipo Number(float) -->
                 <!-- Sacar tantas cajas como precio-energia tenga la tarifa en la tabla -->
                 <div class="input-group mb-2">
                     <input type="number" class="form-control" id="precio-energia" name="precio-energia"
-                        placeholder="Precio - Energía">
+                        placeholder="{{ 'precio.energia' | translate }}">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">€/kWh</div>
+                        <div class="input-group-text">{{ 'ekWh' | translate }}</div>
                     </div>
                 </div>
             </div>
             <div class="col-6">
-                <label for="precio-potencia">Energía consumida</label>
+                <label for="precio-potencia">{{ 'consumida.energia' | translate }}</label>
                 <!-- Tipo Number(float) -->
                 <!-- Sacar tantas cajas como precio-potencia tenga la tarifa en la tabla -->
                 <div class="input-group mb-2">
                     <input type="number" class="form-control" id="precio-potencia" name="precio-potencia"
-                        placeholder="Energía consumida">
+                        placeholder="{{ 'consumida.energia' | translate }}<">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">kWh</div>
+                        <div class="input-group-text">{{ 'kWh' | translate }}</div>
                     </div>
                 </div>
             </div>
@@ -71,26 +71,25 @@
     <div class="form-group">
         <div class="form-row">
             <div class="col-6">
-                <label for="precio-atr">Precio - ATR</label>
-                <!-- Tipo Number(float) -->
-                <!-- Sacar tantas cajas como precio-ATR tenga la tarifa en la tabla -->
-                <div class="input-group mb-2">
-                    <input type="number" class="form-control" id="precio-atr" name="precio-energia"
-                        placeholder="Precio - ATR">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">€/kWh</div>
-                    </div>
-                </div>
+                <label for="precio-atr">{{ 'precio.atr' | translate }}<</label> <!-- Tipo Number(float) -->
+                        <!-- Sacar tantas cajas como precio-ATR tenga la tarifa en la tabla -->
+                        <div class="input-group mb-2">
+                            <input type="number" class="form-control" id="precio-atr" name="precio-energia"
+                                placeholder="{{ 'precio.atr' | translate }}<">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">{{ 'ekWh' | translate }}</div>
+                            </div>
+                        </div>
             </div>
             <div class="col-6">
-                <label for="precio-potencia">ATR consumida</label>
+                <label for="precio-potencia">{{ 'consumida.atr' | translate }}</label>
                 <!-- Tipo Number(float) -->
                 <!-- Sacar tantas cajas como precio-potencia tenga la tarifa en la tabla -->
                 <div class="input-group mb-2">
                     <input type="number" class="form-control" id="precio-potencia" name="precio-potencia"
-                        placeholder="ATR consumida">
+                        placeholder="{{ 'consumida.atr' | translate }}<">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">kWh</div>
+                        <div class="input-group-text">{{ 'kWh' | translate }}</div>
                     </div>
                 </div>
             </div>
@@ -98,7 +97,7 @@
     </div>
 
     <div class="form-group">
-        <label for="tipo_contrato">Tipo Contrato</label>
+        <label for="tipo_contrato">{{ 'tipo.contrato' | translate }}</label>
         <select name="tipo_contrato" class="form-control" aria-placeholder="Tipo Contrato">
             <option>Fijo</option>
             <option>Variable</option>

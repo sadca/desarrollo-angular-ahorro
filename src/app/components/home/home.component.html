@@ -4,36 +4,33 @@
         <div class="row">
             <div class="card-deck">
                 <div class="card text-center border-secondary">
-                    <div class="card-header">Opción Simple</div>
+                    <div class="card-header">{{ 'opcion.simple.tit' | translate}}</div>
                     <div class="card-body">
-                        <p class="card-text">Esta opción te permitirá saber si puedes o no ahorrar en tu factura
-                            de la luz de una forma sencilla y rápida, rellena los campos necesarios y calcula tu
-                            factura.</p>
+                        <p class="card-text">{{ 'opcion.simple.des' | translate}}.</p>
                     </div>
                     <div class="card-footer">
-                        <button (click)="mostrarOpcion('sencillo');scroll(abajo);" class="btn btn-dark">Mostrar</button>
+                        <button (click)="mostrarOpcion('sencillo');scroll(abajo);"
+                            class="btn btn-dark">{{ 'boton.mostrar' | translate }}</button>
                     </div>
                 </div>
                 <div class="card text-center border-secondary">
-                    <div class="card-header">Opción Completa</div>
+                    <div class="card-header">{{ 'opcion.completa.tit' | translate}}</div>
                     <div class="card-body">
-                        <p class="card-text">Esta opción te permitirá saber cuanto puedes ahorrar en tu factura
-                            de la luz de una forma precisa y completa, rellena los campos necesarios y calcula
-                            tu ahorro. Por ejemplo: 200€ anuales</p>
+                        <p class="card-text">{{ 'opcion.completa.des' | translate}}.</p>
                     </div>
                     <div class="card-footer">
-                        <button (click)="mostrarOpcion('complejo');scroll(abajo);" class="btn btn-dark">Mostrar</button>
+                        <button (click)="mostrarOpcion('complejo');scroll(abajo);"
+                            class="btn btn-dark">{{ 'boton.mostrar' | translate }}</button>
                     </div>
                 </div>
                 <div class="card text-center border-secondary">
-                    <div class="card-header">Calculo con Imagen</div>
+                    <div class="card-header">{{ 'opcion.imagen.tit' | translate}}</div>
                     <div class="card-body">
-                        <p class="card-text">Esta opción te permitirá saber cuanto puedes ahorrar en tu factura
-                            de la luz arrastrando una imagen o un archivo, nosotros analizaremos la factura y te
-                            contestaremos con un ahorro para tu factura. Por ejemplo: 200€ anuales</p>
+                        <p class="card-text">{{ 'opcion.imagen.des' | translate}}.</p>
                     </div>
                     <div class="card-footer">
-                        <button (click)="mostrarOpcion('imagen');scroll(abajo);" class="btn btn-dark">Mostrar</button>
+                        <button (click)="mostrarOpcion('imagen');scroll(abajo);"
+                            class="btn btn-dark">{{ 'boton.mostrar' | translate }}</button>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,4 @@
+<button class="btn btn-link" [ngClass]="{'active': activeLang == 'es'}"
+    (click)="cambiarLenguaje('es')">{{'idioma.es' | translate}}</button>
+<button class="btn btn-link" [ngClass]="{'active': activeLang == 'en'}"
+    (click)="cambiarLenguaje('en')">{{'idioma.en' | translate}}</button>

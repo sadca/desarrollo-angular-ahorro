@@ -2,18 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html'
+  selector: 'app-translation',
+  templateUrl: './translation.component.html'
 })
-export class AppComponent implements OnInit {
+export class TranslationComponent implements OnInit {
   public activeLang = 'es';
-  title = 'sadca-angular';
-  minHeigth: number;
 
   constructor(private translate: TranslateService) {
-    this.minHeigth = 0;
     this.translate.setDefaultLang(this.activeLang);
   }
 
   ngOnInit() {}
+
+  public cambiarLenguaje(lang) {
+    this.activeLang = lang;
+    this.translate.use(lang);
+  }
 }
