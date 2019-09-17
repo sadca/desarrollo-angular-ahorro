@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-calculo-simple',
@@ -6,10 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class CalculoSimpleComponent implements OnInit {
+  @Input() origenes: any[] = [];
+  @Input() tarifas: any[] = [];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

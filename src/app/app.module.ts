@@ -11,7 +11,7 @@ import { CalculoComplejoComponent } from './components/calculo-complejo/calculo-
 // Translation
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { TranslationComponent } from './translation/translation.component';
 
 @NgModule({

@@ -39,9 +39,11 @@
         <div class="card" *ngIf="opcion != ''">
             <div class="card-body bg-light border-dark">
                 <p id="formulario"></p>
-                <app-calculo-simple *ngIf="opcion == 'sencillo'"></app-calculo-simple>
+                <app-calculo-simple *ngIf="opcion == 'sencillo'" [origenes]="origenes" [tarifas]="tarifas">
+                </app-calculo-simple>
 
-                <app-calculo-complejo *ngIf="opcion == 'complejo'"></app-calculo-complejo>
+                <app-calculo-complejo *ngIf="opcion == 'complejo'" [origenes]="origenes" [tarifas]="tarifas">
+                </app-calculo-complejo>
 
                 <app-calculo-imagen *ngIf="opcion == 'imagen'"></app-calculo-imagen>
             </div>

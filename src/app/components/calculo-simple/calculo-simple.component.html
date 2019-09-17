@@ -3,9 +3,7 @@
     <div class="form-group">
         <label for="tarifa">{{ 'tarifa.titulo' | translate }}</label>
         <select name="tarifa" class="form-control">
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
+            <option *ngFor="let tarifa of tarifas" [value]="tarifa.id">{{ tarifa.tarifa }}</option>
         </select>
     </div>
 
@@ -38,8 +36,7 @@
     <div class="form-group">
         <label for="tipo_contrato">{{ 'tipo.contrato' | translate }}</label>
         <select name="tipo_contrato" class="form-control">
-            <option>Fijo</option>
-            <option>Variable</option>
+            <option *ngFor="let ori of origenes" [value]="ori.idOrigen">{{ ori.origen }}</option>
         </select>
     </div>
 
