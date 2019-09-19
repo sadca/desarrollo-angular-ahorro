@@ -11,8 +11,13 @@ import { CalculoComplejoComponent } from './components/calculo-complejo/calculo-
 // Translation
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslationComponent } from './translation/translation.component';
+import { FormsModule } from '@angular/forms';
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -27,12 +32,11 @@ import { TranslationComponent } from './translation/translation.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: (http: HttpClient) => {
-          return new TranslateHttpLoader(http);
-        },
+        useFactory: createTranslateLoader,
         deps: [HttpClient]
       }
     })

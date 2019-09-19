@@ -15,12 +15,10 @@ export class HomeComponent implements OnInit {
     this.opcion = '';
 
     this.origenService.getOrigenes().subscribe((data: any[]) => {
-      console.log(data);
       this.origenes = data;
     });
 
     this.origenService.getTarifas().subscribe((data: any[]) => {
-      console.log(data);
       this.tarifas = data;
     });
   }

@@ -1,43 +1,83 @@
-<form>
+<form #form="ngForm" (ngSubmit)="login(form)">
 
     <div class="form-group">
         <label for="tarifa">{{ 'tarifa.titulo' | translate }}</label>
-        <select name="tarifa" class="form-control">
+
+        <select [(ngModel)]="tarifa" [ngClass]="{'is-invalid': form.submitted && form.controls['tarifa'].errors}"
+            required name="tarifa" class="form-control">
             <option *ngFor="let tarifa of tarifas" [value]="tarifa.id">{{ tarifa.tarifa }}</option>
         </select>
+        <div *ngIf="form.submitted && form.controls['tarifa'].errors" class="invalid-feedback">
+            {{ 'campo.obligatorio' | translate }}
+        </div>
     </div>
 
     <div class="form-group">
         <label for="precio-potencia">{{ 'precio.potencia' | translate }}</label>
         <!-- Tipo Number(float) -->
         <!-- Sacar tantas cajas como precio-potencia tenga la tarifa en la tabla -->
-        <input type="number" class="form-control" id="precio-potencia" name="precio-potencia"
-            placeholder="{{ 'precio.potencia' | translate }}">
+        <div class="input-group mb-2">
+            <input [(ngModel)]="precioPotencia"
+                [ngClass]="{'is-invalid': form.submitted && form.controls['precio_potencia'].errors}" required number
+                type="number" class="form-control" id="precio_potencia" name="precio_potencia"
+                placeholder="{{ 'precio.potencia' | translate }}">
+            <div class="input-group-prepend">
+                <div class="input-group-text">{{ 'ekW' | translate }}</div>
+            </div>
+            <div *ngIf="form.submitted && form.controls['precio_potencia'].errors" class="invalid-feedback">
+                {{ 'campo.obligatorio' | translate }}
+            </div>
+        </div>
     </div>
 
     <div class="form-group">
         <label for="precio-energia">{{ 'precio.energia' | translate }}</label>
         <!-- Tipo Number(float) -->
         <!-- Sacar tantas cajas como precio-energia tenga la tarifa en la tabla -->
-        <input type="number" class="form-control" id="precio-energia" name="precio-energia"
-            placeholder="{{ 'precio.energia' | translate }}">
+        <div class="input-group mb-2">
+            <input [(ngModel)]="precioEnergia"
+                [ngClass]="{'is-invalid': form.submitted && form.controls['precio_energia'].errors}" required number
+                type="number" class="form-control" id="precio_energia" name="precio_energia"
+                placeholder="{{ 'precio.energia' | translate }}">
+            <div class="input-group-prepend">
+                <div class="input-group-text">{{ 'ekWh' | translate }}</div>
+            </div>
+            <div *ngIf="form.submitted && form.controls['precio_energia'].errors" class="invalid-feedback">
+                {{ 'campo.obligatorio' | translate }}
+            </div>
+        </div>
     </div>
-
 
     <div class="form-group">
         <label for="precio-atr">{{ 'precio.atr' | translate }}</label>
         <!-- Tipo Number(float) -->
         <!-- Sacar tantas cajas como precio-ATR tenga la tarifa en la tabla -->
-        <input type="number" class="form-control" id="precio-atr" name="precio-energia"
-            placeholder="{{ 'precio.atr' | translate }}">
+        <div class="input-group mb-2">
+            <input [(ngModel)]="precioAtr"
+                [ngClass]="{'is-invalid': form.submitted && form.controls['precio_atr'].errors}" required numberS
+                type="number" class="form-control" id="precio_atr" name="precio_atr"
+                placeholder="{{ 'precio.atr' | translate }}">
+            <div class="input-group-prepend">
+                <div class="input-group-text">{{ 'ekWh' | translate }}</div>
+            </div>
+            <div *ngIf="form.submitted && form.controls['precio_atr'].errors" class="invalid-feedback">
+                {{ 'campo.obligatorio' | translate }}
+            </div>
+        </div>
     </div>
-
 
     <div class="form-group">
         <label for="tipo_contrato">{{ 'tipo.contrato' | translate }}</label>
-        <select name="tipo_contrato" class="form-control">
+        <select [(ngModel)]="tipoContrato"
+            [ngClass]="{'is-invalid': form.submitted && form.controls['tipo_contrato'].errors}" required
+            name="tipo_contrato" class="form-control">
             <option *ngFor="let ori of origenes" [value]="ori.idOrigen">{{ ori.origen }}</option>
         </select>
+        <div *ngIf="form.submitted && form.controls['tipo_contrato'].errors" class="invalid-feedback">
+            {{ 'campo.obligatorio' | translate }}
+        </div>
     </div>
+
+    <button type="submit" class="btn btn-primary">{{ 'calcular.boton' | translate }}</button>
 
 </form>
