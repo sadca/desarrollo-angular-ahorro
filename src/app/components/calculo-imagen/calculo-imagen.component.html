@@ -11,7 +11,11 @@
     </div>
 
     <div class="form-group">
-        {{ 'arrastrar.examinar' | translate }}
+        <label for="archivo_adjunto">{{ 'adjuntar.archivo' | translate }}</label>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="archivo_adjunto" name="archivo_adjunto">
+            <label class="custom-file-label" for="archivo_adjunto" data-browse="Examinar">Seleccionar un archivo</label>
+        </div>
     </div>
 
 </form>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { OrigenService } from '../../services/origen.service';
-import { Origen } from '../../models/origen.model';
 
 @Component({
   selector: 'app-home',
