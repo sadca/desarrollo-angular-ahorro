@@ -1,21 +1,39 @@
-<form>
+<form #form="ngForm" (ngSubmit)="login(form)">
 
     <div class="form-group">
         <label for="email">{{ 'correo.electronico' | translate }}</label>
-        <input type="email" class="form-control" id="email" name="email">
+        <input [(ngModel)]="email" email required
+            [ngClass]="{'is-invalid': form.submitted && form.controls['email'].errors}" type="email"
+            class="form-control" id="email" name="email">
+        <div *ngIf="form.submitted && form.controls['email'].errors && form.controls['email'].errors['required']"
+            class="invalid-feedback">
+            {{ 'campo.obligatorio' | translate }}
+        </div>
+        <div *ngIf="form.submitted && form.controls['email'].errors && form.controls['email'].errors['email']"
+            class="invalid-feedback">
+            {{ 'correo.invalido' | translate }}
+        </div>
     </div>
 
     <div class="form-group">
         <label for="nombre">{{ 'nombre.completo' | translate }}</label>
-        <input type="text" class="form-control" id="nombre" name="nombre">
+        <input [(ngModel)]="nombre" required
+            [ngClass]="{'is-invalid': form.submitted && form.controls['nombre'].errors}" type="text"
+            class="form-control" id="nombre" name="nombre">
+        <div *ngIf="form.submitted && form.controls['nombre'].errors" class="invalid-feedback">
+            {{ 'campo.obligatorio' | translate }}
+        </div>
     </div>
 
     <div class="form-group">
         <label for="archivo_adjunto">{{ 'adjuntar.archivo' | translate }}</label>
         <div class="custom-file">
-            <input type="file" class="custom-file-input" id="archivo_adjunto" name="archivo_adjunto">
+            <input [(ngModel)]="archivo" type="file" class="custom-file-input" id="archivo_adjunto"
+                name="archivo_adjunto">
             <label class="custom-file-label" for="archivo_adjunto" data-browse="Examinar">Seleccionar un archivo</label>
         </div>
     </div>
+
+    <button type="submit" class="btn btn-primary">{{ 'enviar.boton' | translate }}</button>
 
 </form>

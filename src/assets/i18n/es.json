@@ -24,5 +24,7 @@
   "nombre.completo": "Nombre Completo",
   "adjuntar.archivo": "Adjuntar Archivo",
   "calcular.boton": "Calcular",
-  "campo.obligatorio": "Este campo es obligatorio"
+  "enviar.boton": "Enviar",
+  "campo.obligatorio": "Este campo es obligatorio",
+  "correo.invalido": "Dirección de correo invalida, introduzca una dirección correcta"
 }
