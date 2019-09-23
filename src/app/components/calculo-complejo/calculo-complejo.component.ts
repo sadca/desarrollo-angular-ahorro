@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
   styles: []
 })
 export class CalculoComplejoComponent implements OnInit {
-  @Input() origenes: any[] = [];
+  @Input() tiposContrato: any[] = [];
   @Input() tarifas: any[] = [];
   tarifa: number;
   precioPotencia: number;

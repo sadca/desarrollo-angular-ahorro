@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OrigenService } from '../../services/origen.service';
+import { SelectService } from '../../services/select.service';
 
 @Component({
   selector: 'app-home',
@@ -8,17 +8,22 @@ import { OrigenService } from '../../services/origen.service';
 export class HomeComponent implements OnInit {
   opcion: string;
   origenes: any[] = [];
+  tiposContrato: any[] = [];
   tarifas: any[] = [];
 
-  constructor(private origenService: OrigenService) {
+  constructor(private selectService: SelectService) {
     this.opcion = '';
 
-    this.origenService.getOrigenes().subscribe((data: any[]) => {
+    this.selectService.getOrigenes().subscribe((data: any[]) => {
       this.origenes = data;
     });
 
-    this.origenService.getTarifas().subscribe((data: any[]) => {
+    this.selectService.getTarifas().subscribe((data: any[]) => {
       this.tarifas = data;
+    });
+
+    this.selectService.getTiposContrato().subscribe((data: any[]) => {
+      this.tiposContrato = data;
     });
   }
 

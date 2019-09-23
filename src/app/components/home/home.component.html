@@ -40,13 +40,13 @@
         <p id="formulario"></p>
         <div class="card animated fadeInDown" *ngIf="opcion == 'sencillo'">
             <div class="card-body bg-light border-dark">
-                <app-calculo-simple [origenes]="origenes" [tarifas]="tarifas">
+                <app-calculo-simple [tiposContrato]="tiposContrato" [tarifas]="tarifas">
                 </app-calculo-simple>
             </div>
         </div>
         <div class="card animated fadeInDown" *ngIf="opcion == 'complejo'">
             <div class="card-body bg-light border-dark">
-                <app-calculo-complejo [origenes]="origenes" [tarifas]="tarifas">
+                <app-calculo-complejo [tiposContrato]="tiposContrato" [tarifas]="tarifas">
                 </app-calculo-complejo>
             </div>
         </div>

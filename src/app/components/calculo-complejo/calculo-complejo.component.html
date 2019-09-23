@@ -134,7 +134,7 @@
         <select [(ngModel)]="tipoContrato"
             [ngClass]="{'is-invalid': form.submitted && form.controls['tipo_contrato'].errors}" required
             name="tipo_contrato" class="form-control">
-            <option *ngFor="let ori of origenes" [value]="ori.idOrigen">{{ ori.origen }}</option>
+            <option *ngFor="let tipoContr of tiposContrato" [value]="tipoContr.id">{{ tipoContr.nombre }}</option>
         </select>
         <div *ngIf="form.submitted && form.controls['tipo_contrato'].errors" class="invalid-feedback">
             {{ 'campo.obligatorio' | translate }}
