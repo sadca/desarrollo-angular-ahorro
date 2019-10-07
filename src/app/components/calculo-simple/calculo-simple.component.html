@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" *ngIf="tarifa">
         <label for="precio-potencia">{{ 'precio.potencia' | translate }}</label>
         <div class="input-group mb-2" *ngIf="pPoteData.p1">
             <input [(ngModel)]="pPoteUsu.p1"
@@ -100,7 +100,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" *ngIf="tarifa">
         <label for="precio-energia">{{ 'precio.energia' | translate }}</label>
         <div class="input-group mb-2" *ngIf="pEnerData.p1">
             <input [(ngModel)]="pEnerUsu.p1"
@@ -214,6 +214,6 @@
     </div>
     -->
 
-    <button type="submit" class="btn btn-primary">{{ 'calcular.boton' | translate }}</button>
+    <button *ngIf="tarifa" type="submit" class="btn btn-primary">{{ 'calcular.boton' | translate }}</button>
 
 </form>

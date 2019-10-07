@@ -14,6 +14,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslationComponent } from './translation/translation.component';
 import { FormsModule } from '@angular/forms';
+import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -26,7 +27,8 @@ export function createTranslateLoader(http: HttpClient) {
     CalculoImagenComponent,
     CalculoSimpleComponent,
     CalculoComplejoComponent,
-    TranslationComponent
+    TranslationComponent,
+    NgDropFilesDirective
   ],
   imports: [
     BrowserModule,

@@ -1629,3 +1629,15 @@
 .slideOutUp {
   animation-name: slideOutUp;
 }
+
+/* Drop Zone */
+.drop-zone {
+  border: dotted 2px lightgray;
+  opacity: 0.5;
+  color: #666;
+  text-align: center;
+}
+
+.file-over {
+  border: dotted 2px dodgerblue;
+}

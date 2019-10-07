@@ -26,11 +26,13 @@ export class CalculoSimpleComponent implements OnInit {
   ngOnInit() {}
 
   cargarPotenciaEnergia() {
+    // TODO quitar el submit, como resetar el formulario
     // Cargamos la potencia
     this.selectService
       .getPrecioPotenciaById(this.tarifa)
       .subscribe((data: PrecioPotencia) => {
         this.pPoteData = data;
+        console.log(data);
       });
     // Cargamos la energia
     this.selectService
@@ -257,6 +259,29 @@ export class CalculoSimpleComponent implements OnInit {
     const ahorroPotencia = this.calcularPotencia();
     console.log(ahorroPotencia);
 
+    let mensaje: string;
+    if (ahorroEnergia === 1) {
+      mensaje = 'Puede ahorrar en energía.';
+    } else {
+      if (ahorroEnergia === 2) {
+        mensaje =
+          'Puede ahorrar en energía dependiendo de los valores, haga un cálculo más completo para averiguarlo.';
+      } else {
+        mensaje = 'No puede ahorrar en energía.';
+      }
+    }
+
+    if (ahorroPotencia === 1) {
+      mensaje += ' Puede ahorrar en potencia.';
+    } else {
+      if (ahorroPotencia === 2) {
+        mensaje +=
+          ' Puede ahorrar en potencia dependiendo de los valores, haga un cálculo más completo para averiguarlo.';
+      } else {
+        mensaje += ' No puede ahorrar en potencia.';
+      }
+    }
+
     Swal.fire({
       type: 'info',
       text: 'Calculando...',
@@ -264,19 +289,11 @@ export class CalculoSimpleComponent implements OnInit {
     });
     Swal.showLoading();
     setTimeout(() => {
-      if (this.calcularEnergia()) {
-        Swal.close();
-        Swal.fire({
-          type: 'success',
-          text: 'Puede ahorrar'
-        });
-      } else {
-        Swal.close();
-        Swal.fire({
-          type: 'error',
-          text: 'No puede ahorrar'
-        });
-      }
+      Swal.close();
+      Swal.fire({
+        type: 'success',
+        text: mensaje
+      });
     }, 1000);
   }
 }

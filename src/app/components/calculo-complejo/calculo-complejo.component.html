@@ -1,49 +1,220 @@
-<form #form="ngForm" (ngSubmit)="login(form)">
+<form #form="ngForm" (ngSubmit)="calcular(form)">
 
     <div class="form-group">
         <label for="tarifa">{{ 'tarifa.titulo' | translate }}</label>
 
-        <select [(ngModel)]="tarifa" [ngClass]="{'is-invalid': form.submitted && form.controls['tarifa'].errors}"
-            required name="tarifa" class="form-control">
-            <option *ngFor="let tarifa of tarifas" [value]="tarifa.id">{{ tarifa.tarifa }}</option>
+        <select [(ngModel)]="tarifa" (change)="cargarPotenciaEnergia(form)"
+            [ngClass]="{'is-invalid': form.submitted && form.controls['tarifa'].errors}" required name="tarifa"
+            class="form-control">
+            <option *ngFor="let tarifa of tarifas" [value]="tarifa.id">
+                {{ tarifa.tarifa }}</option>
         </select>
         <div *ngIf="form.submitted && form.controls['tarifa'].errors" class="invalid-feedback">
             {{ 'campo.obligatorio' | translate }}
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" *ngIf="tarifa">
         <div class="form-row">
             <div class="col-lg-6 col-sm-12 col-xs-12">
                 <label for="precio-potencia">{{ 'precio.potencia' | translate }}</label>
-                <!-- Tipo Number(float) -->
-                <!-- Sacar tantas cajas como precio-potencia tenga la tarifa en la tabla -->
-                <div class="input-group mb-2">
-                    <input [(ngModel)]="precioPotencia"
-                        [ngClass]="{'is-invalid': form.submitted && form.controls['precio_potencia'].errors}" required
-                        number type="number" class="form-control" id="precio_potencia" name="precio_potencia"
-                        placeholder="{{ 'precio.potencia' | translate }}">
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <label for="precio-potencia">{{ 'contratada.potencia' | translate }}</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2" *ngIf="pPoteData.p1">
+                    <input [(ngModel)]="pPoteUsu.p1"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['precio_potencia'] && form.controls['precio_potencia'].errors}"
+                        required number type="number" class="form-control" id="precio_potencia" name="precio_potencia"
+                        placeholder="{{ 'precio.potencia' | translate }} (P1)">
                     <div class="input-group-prepend">
                         <div class="input-group-text">{{ 'ekW' | translate }}</div>
                     </div>
-                    <div *ngIf="form.submitted && form.controls['precio_potencia'].errors" class="invalid-feedback">
+                    <div *ngIf="form.submitted && form.controls['precio_potencia'] && form.controls['precio_potencia'].errors"
+                        class="invalid-feedback">
                         {{ 'campo.obligatorio' | translate }}
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12 col-xs-12">
-                <label for="precio-potencia">{{ 'contratada.potencia' | translate }}</label>
-                <!-- Tipo Number(float) -->
-                <!-- Sacar tantas cajas como precio-potencia tenga la tarifa en la tabla -->
-                <div class="input-group mb-2">
-                    <input [(ngModel)]="potenciaConsumida"
-                        [ngClass]="{'is-invalid': form.submitted && form.controls['potencia_consumida'].errors}"
+                <div class="input-group mb-2" *ngIf="pPoteData.p1">
+                    <input [(ngModel)]="potenciaConsumida.p1"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['potencia_consumida'] && form.controls['potencia_consumida'].errors}"
                         required number type="number" class="form-control" id="potencia_consumida"
                         name="potencia_consumida" placeholder="{{ 'contratada.potencia' | translate }}">
                     <div class="input-group-prepend">
                         <div class="input-group-text">{{ 'kW' | translate }}</div>
                     </div>
-                    <div *ngIf="form.submitted && form.controls['potencia_consumida'].errors" class="invalid-feedback">
+                    <div *ngIf="form.submitted && form.controls['potencia_consumida'] && form.controls['potencia_consumida'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row" *ngIf="pPoteData.p2">
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2">
+                    <input [(ngModel)]="pPoteUsu.p2" *ngIf="pPoteData.p2 && pPoteData.p1"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['precio_potencia2'] && form.controls['precio_potencia2'].errors}"
+                        required number type="number" class="form-control" id="precio_potencia2" name="precio_potencia2"
+                        placeholder="{{ 'precio.potencia' | translate }} (P2)">
+                    <input [(ngModel)]="pPoteUsu.p2" *ngIf="!pPoteData.p1"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['precio_potencia2'] && form.controls['precio_potencia2'].errors}"
+                        required number type="number" class="form-control" id="precio_potencia2" name="precio_potencia2"
+                        placeholder="{{ 'precio.potencia' | translate }} (P1)">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'ekW' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['precio_potencia2'] && form.controls['precio_potencia2'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2" *ngIf="pPoteData.p2">
+                    <input [(ngModel)]="potenciaConsumida.p2"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['potencia_consumida2'] && form.controls['potencia_consumida2'].errors}"
+                        required number type="number" class="form-control" id="potencia_consumida2"
+                        name="potencia_consumida2" placeholder="{{ 'contratada.potencia' | translate }}">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'kW' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['potencia_consumida2'] && form.controls['potencia_consumida2'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row" *ngIf="pPoteData.p3">
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2">
+                    <input [(ngModel)]="pPoteUsu.p3"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['precio_potencia3'] && form.controls['precio_potencia3'].errors}"
+                        required number type="number" class="form-control" id="precio_potencia3" name="precio_potencia3"
+                        placeholder="{{ 'precio.potencia' | translate }} (P3)">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'ekW' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['precio_potencia3'] && form.controls['precio_potencia3'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2">
+                    <input [(ngModel)]="potenciaConsumida.p3"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['potencia_consumida3'] && form.controls['potencia_consumida3'].errors}"
+                        required number type="number" class="form-control" id="potencia_consumida3"
+                        name="potencia_consumida3" placeholder="{{ 'contratada.potencia' | translate }}">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'kW' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['potencia_consumida3'] && form.controls['potencia_consumida3'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row" *ngIf="pPoteData.p4">
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2">
+                    <input [(ngModel)]="pPoteUsu.p4"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['precio_potencia4'] && form.controls['precio_potencia4'].errors}"
+                        required number type="number" class="form-control" id="precio_potencia4" name="precio_potencia4"
+                        placeholder="{{ 'precio.potencia' | translate }} (P4)">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'ekW' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['precio_potencia4'] && form.controls['precio_potencia4'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2">
+                    <input [(ngModel)]="potenciaConsumida.p4"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['potencia_consumida4'] && form.controls['potencia_consumida4'].errors}"
+                        required number type="number" class="form-control" id="potencia_consumida4"
+                        name="potencia_consumida4" placeholder="{{ 'contratada.potencia' | translate }}">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'kW' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['potencia_consumida4'] && form.controls['potencia_consumida4'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row" *ngIf="pPoteData.p5">
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2">
+                    <input [(ngModel)]="pPoteUsu.p5"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['precio_potencia5'] && form.controls['precio_potencia5'].errors}"
+                        required number type="number" class="form-control" id="precio_potencia5" name="precio_potencia5"
+                        placeholder="{{ 'precio.potencia' | translate }} (P5)">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'ekW' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['precio_potencia5'] && form.controls['precio_potencia5'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2">
+                    <input [(ngModel)]="potenciaConsumida.p5"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['potencia_consumida5'] && form.controls['potencia_consumida5'].errors}"
+                        required number type="number" class="form-control" id="potencia_consumida5"
+                        name="potencia_consumida5" placeholder="{{ 'contratada.potencia' | translate }}">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'kW' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['potencia_consumida5'] && form.controls['potencia_consumida5'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row" *ngIf="pPoteData.p6">
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2">
+                    <input [(ngModel)]="pPoteUsu.p6"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['precio_potencia6'] && form.controls['precio_potencia6'].errors}"
+                        required number type="number" class="form-control" id="precio_potencia6"
+                        name=" precio_potencia6" placeholder="{{ 'precio.potencia' | translate }} (P6)">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'ekW' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['precio_potencia6'] && form.controls['precio_potencia6'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2">
+                    <input [(ngModel)]="potenciaConsumida.p6"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['potencia_consumida6'] && form.controls['potencia_consumida6'].errors}"
+                        required number type="number" class="form-control" id="potencia_consumida6"
+                        name="potencia_consumida6" placeholder="{{ 'contratada.potencia' | translate }}">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'kW' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['potencia_consumida6'] && form.controls['potencia_consumida6'].errors"
+                        class="invalid-feedback">
                         {{ 'campo.obligatorio' | translate }}
                     </div>
                 </div>
@@ -51,38 +222,203 @@
         </div>
     </div>
 
-    <div class="form-group">
+
+    <div class="form-group" *ngIf="tarifa">
         <div class="form-row">
             <div class="col-lg-6 col-sm-12 col-xs-12">
                 <label for="precio-energia">{{ 'precio.energia' | translate }}</label>
-                <!-- Tipo Number(float) -->
-                <!-- Sacar tantas cajas como precio-energia tenga la tarifa en la tabla -->
-                <div class="input-group mb-2">
-                    <input [(ngModel)]="precioEnergia"
-                        [ngClass]="{'is-invalid': form.submitted && form.controls['precio_energia'].errors}" required
-                        number type="number" class="form-control" id="precio_energia" name="precio_energia"
-                        placeholder="{{ 'precio.energia' | translate }}">
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <label for="precio-potencia">{{ 'consumida.energia' | translate }}</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2" *ngIf="pEnerData.p1">
+                    <input [(ngModel)]="pEnerUsu.p1"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['precio_energia'] && form.controls['precio_energia'].errors}"
+                        required number type="number" class="form-control" id="precio_energia" name="precio_energia"
+                        placeholder="{{ 'precio.energia' | translate }} (E1)">
                     <div class="input-group-prepend">
                         <div class="input-group-text">{{ 'ekWh' | translate }}</div>
                     </div>
-                    <div *ngIf="form.submitted && form.controls['precio_energia'].errors" class="invalid-feedback">
+                    <div *ngIf="form.submitted && form.controls['precio_energia'] && form.controls['precio_energia'].errors"
+                        class="invalid-feedback">
                         {{ 'campo.obligatorio' | translate }}
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12 col-xs-12">
-                <label for="precio-potencia">{{ 'consumida.energia' | translate }}</label>
-                <!-- Tipo Number(float) -->
-                <!-- Sacar tantas cajas como precio-potencia tenga la tarifa en la tabla -->
-                <div class="input-group mb-2">
-                    <input [(ngModel)]="energiaConsumida"
-                        [ngClass]="{'is-invalid': form.submitted && form.controls['energia_consumida'].errors}" required
-                        number type="number" class="form-control" id="energia_consumida" name="energia_consumida"
-                        placeholder="{{ 'consumida.energia' | translate }}">
+                <div class="input-group mb-2" *ngIf="pEnerData.p1">
+                    <input [(ngModel)]="energiaConsumida.p1"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['energia_consumida'] && form.controls['energia_consumida'].errors}"
+                        required number type="number" class="form-control" id="energia_consumida"
+                        name="energia_consumida" placeholder="{{ 'consumida.energia' | translate }}">
                     <div class="input-group-prepend">
                         <div class="input-group-text">{{ 'kWh' | translate }}</div>
                     </div>
-                    <div *ngIf="form.submitted && form.controls['energia_consumida'].errors" class="invalid-feedback">
+                    <div *ngIf="form.submitted && form.controls['energia_consumida'] && form.controls['energia_consumida'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row" *ngIf="pEnerData.p2">
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2">
+                    <input [(ngModel)]="pEnerUsu.p2"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['precio_energia2'] && form.controls['precio_energia2'].errors}"
+                        required number type="number" class="form-control" id="precio_energia2" name="precio_energia2"
+                        placeholder="{{ 'precio.energia' | translate }} (E2)">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'ekWh' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['precio_energia2'] && form.controls['precio_energia2'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2">
+                    <input [(ngModel)]="energiaConsumida.p2"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['energia_consumida2'] && form.controls['energia_consumida2'].errors}"
+                        required number type="number" class="form-control" id="energia_consumida2"
+                        name="energia_consumida2" placeholder="{{ 'consumida.energia' | translate }}">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'kWh' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['energia_consumida2'] && form.controls['energia_consumida2'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row" *ngIf="pEnerData.p3">
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2">
+                    <input [(ngModel)]="pEnerUsu.p3"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['precio_energia3'] && form.controls['precio_energia3'].errors}"
+                        required number type="number" class="form-control" id="precio_energia3" name="precio_energia3"
+                        placeholder="{{ 'precio.energia' | translate }} (E3)">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'ekWh' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['precio_energia3'] && form.controls['precio_energia3'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2">
+                    <input [(ngModel)]="energiaConsumida.p3"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['energia_consumida3'] && form.controls['energia_consumida3'].errors}"
+                        required number type="number" class="form-control" id="energia_consumida3"
+                        name="energia_consumida3" placeholder="{{ 'consumida.energia' | translate }}">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'kWh' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['energia_consumida3'] && form.controls['energia_consumida3'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row" *ngIf="pEnerData.p4">
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2">
+                    <input [(ngModel)]="pEnerUsu.p4"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['precio_energia4'] && form.controls['precio_energia4'].errors}"
+                        required number type="number" class="form-control" id="precio_energia4" name="precio_energia4"
+                        placeholder="{{ 'precio.energia' | translate }} (E4)">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'ekWh' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['precio_energia4'] && form.controls['precio_energia4'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2">
+                    <input [(ngModel)]="energiaConsumida.p4"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['energia_consumida4'] && form.controls['energia_consumida4'].errors}"
+                        required number type="number" class="form-control" id="energia_consumida4"
+                        name="energia_consumida4" placeholder="{{ 'consumida.energia' | translate }}">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'kWh' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['energia_consumida4'] && form.controls['energia_consumida4'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row" *ngIf="pEnerData.p5">
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2">
+                    <input [(ngModel)]="pEnerUsu.p5"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['precio_energia5'] && form.controls['precio_energia5'].errors}"
+                        required number type="number" class="form-control" id="precio_energia5" name="precio_energia5"
+                        placeholder="{{ 'precio.energia' | translate }} (E5)">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'ekWh' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['precio_energia5'] && form.controls['precio_energia5'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2">
+                    <input [(ngModel)]="energiaConsumida.p5"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['energia_consumida5'] && form.controls['energia_consumida5'].errors}"
+                        required number type="number" class="form-control" id="energia_consumida5"
+                        name="energia_consumida5" placeholder="{{ 'consumida.energia' | translate }}">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'kWh' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['energia_consumida5'] && form.controls['energia_consumida5'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row" *ngIf="pEnerData.p6">
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2">
+                    <input [(ngModel)]="pEnerUsu.p6"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['precio_energia6'] && form.controls['precio_energia6'].errors}"
+                        required number type="number" class="form-control" id="precio_energia6" name="precio_energia6"
+                        placeholder="{{ 'precio.energia' | translate }} (E6)">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'ekWh' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['precio_energia6'] && form.controls['precio_energia6'].errors"
+                        class="invalid-feedback">
+                        {{ 'campo.obligatorio' | translate }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-2">
+                    <input [(ngModel)]="energiaConsumida.p6"
+                        [ngClass]="{'is-invalid': form.submitted && form.controls['energia_consumida6'] && form.controls['energia_consumida6'].errors}"
+                        required number type="number" class="form-control" id="energia_consumida6"
+                        name="energia_consumida6" placeholder="{{ 'consumida.energia' | translate }}">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ 'kWh' | translate }}</div>
+                    </div>
+                    <div *ngIf="form.submitted && form.controls['energia_consumida6'] && form.controls['energia_consumida6'].errors"
+                        class="invalid-feedback">
                         {{ 'campo.obligatorio' | translate }}
                     </div>
                 </div>
@@ -90,12 +426,46 @@
         </div>
     </div>
 
+    <div class="form-group" *ngIf="tarifa">
+        <div class="form-row">
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <label for="precio-energia">Días de factura</label>
+                <input [(ngModel)]="dias"
+                    [ngClass]="{'is-invalid': form.submitted && form.controls['dias'] && form.controls['dias'].errors}"
+                    required number type="number" class="form-control" id="dias" name="dias"
+                    placeholder="Días de factura">
+                <div *ngIf="form.submitted && form.controls['dias'] && form.controls['dias'].errors"
+                    class="invalid-feedback">
+                    {{ 'campo.obligatorio' | translate }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="tarifa">
+        <div class="col-6">
+            <div class="radio">
+                <label><input [(ngModel)]="peninsulaCanarias" type="radio" value="peninsula" name="peninsula_canarias">
+                    Península o Baleares</label>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="radio">
+                <label> <input [(ngModel)]="peninsulaCanarias" type="radio" value="canarias" name="peninsula_canarias">
+                    Islas Canarias</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="radio">
+    </div>
+
+    <!-- 
 
     <div class="form-group">
         <div class="form-row">
             <div class="col-lg-6 col-sm-12 col-xs-12">
-                <label for="precio-atr">{{ 'precio.atr' | translate }}</label> <!-- Tipo Number(float) -->
-                <!-- Sacar tantas cajas como precio-ATR tenga la tarifa en la tabla -->
+                <label for="precio-atr">{{ 'precio.atr' | translate }}</label>
                 <div class="input-group mb-2">
                     <input [(ngModel)]="precioAtr"
                         [ngClass]="{'is-invalid': form.submitted && form.controls['precio_atr'].errors}" required number
@@ -111,8 +481,6 @@
             </div>
             <div class="col-lg-6 col-sm-12 col-xs-12">
                 <label for="precio-potencia">{{ 'consumida.atr' | translate }}</label>
-                <!-- Tipo Number(float) -->
-                <!-- Sacar tantas cajas como precio-potencia tenga la tarifa en la tabla -->
                 <div class="input-group mb-2">
                     <input [(ngModel)]="precioAtr"
                         [ngClass]="{'is-invalid': form.submitted && form.controls['atr_consumida'].errors}" required
@@ -141,6 +509,9 @@
         </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">{{ 'calcular.boton' | translate }}</button>
+    -->
+
+    <button *ngIf="tarifa" [disabled]="form.invalid" type="submit"
+        class="btn btn-primary">{{ 'calcular.boton' | translate }}</button>
 
 </form>
