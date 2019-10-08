@@ -1,4 +1,5 @@
 import { FileItem } from '../models/file-items.model';
+import Swal from 'sweetalert2';
 import {
   Directive,
   EventEmitter,
@@ -55,22 +56,30 @@ export class NgDropFilesDirective {
   }
 
   private extraerArchivos(archivosLista: FileList) {
-    console.log(archivosLista);
-
     // tslint:disable-next-line: forin
     for (const propiedad in Object.getOwnPropertyNames(archivosLista)) {
       const archivoTemporal = archivosLista[propiedad];
       if (this.archivoPuedeCargarse(archivoTemporal)) {
-        const nuevoArchivo = new FileItem(archivoTemporal);
-        this.archivos.push(nuevoArchivo);
+        if (this.archivos.length < 3) {
+          const nuevoArchivo = new FileItem(archivoTemporal);
+          this.archivos.push(nuevoArchivo);
+        } else {
+          Swal.fire({
+            type: 'error',
+            text: 'Solo puede añadir 3 archivos.'
+          });
+        }
       }
     }
-    console.log(this.archivos);
   }
 
   // Validaciones
   private archivoPuedeCargarse(archivo: File): boolean {
-    if (!this.archivoYaSubido(archivo.name) && this.esImagen(archivo.type)) {
+    if (
+      !this.archivoYaSubido(archivo.name) &&
+      this.esImagen(archivo.type) &&
+      !this.tamanioSuperado(archivo.size)
+    ) {
       return true;
     } else {
       return false;
@@ -86,10 +95,14 @@ export class NgDropFilesDirective {
     for (const archivo of this.archivos) {
       // tslint:disable-next-line: triple-equals
       if (archivo.nombreArchivo == nombreArchivo) {
-        console.log('El archivo ' + nombreArchivo + ' ya está agregado.');
+        Swal.fire({
+          type: 'error',
+          text: 'El archivo ' + nombreArchivo + ' ya está agregado.'
+        });
         return true;
       }
     }
+
     return false;
   }
 
@@ -98,5 +111,18 @@ export class NgDropFilesDirective {
       ? false
       : tipoArchivo.startsWith('image') ||
           tipoArchivo.startsWith('application');
+  }
+
+  private tamanioSuperado(tamanio: number): boolean {
+    tamanio = tamanio / 1024 / 1024;
+    if (tamanio > 8) {
+      Swal.fire({
+        type: 'error',
+        text: 'El archivo excede en tamaño.'
+      });
+      return true;
+    } else {
+      return false;
+    }
   }
 }

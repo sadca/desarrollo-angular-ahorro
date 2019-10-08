@@ -214,6 +214,7 @@
     </div>
     -->
 
-    <button *ngIf="tarifa" type="submit" class="btn btn-primary">{{ 'calcular.boton' | translate }}</button>
+    <button *ngIf="tarifa" [disabled]="form.invalid" type="submit"
+        class="btn btn-primary">{{ 'calcular.boton' | translate }}</button>
 
 </form>

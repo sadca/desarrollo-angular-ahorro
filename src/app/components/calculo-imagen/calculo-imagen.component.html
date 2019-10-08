@@ -86,6 +86,6 @@
     </div>
 
 
-    <button type="submit" class="btn btn-primary">{{ 'enviar.boton' | translate }}</button>
+    <button type="submit" [disabled]="form.invalid" class="btn btn-primary">{{ 'enviar.boton' | translate }}</button>
 
 </form>

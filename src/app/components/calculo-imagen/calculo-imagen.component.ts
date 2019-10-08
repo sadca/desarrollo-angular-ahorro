@@ -23,7 +23,64 @@ export class CalculoImagenComponent implements OnInit {
   cargarFichero(evento: any) {
     if (evento.srcElement.files[0]) {
       const archivoNuevo = new FileItem(evento.srcElement.files[0]);
-      this.archivos.push(archivoNuevo);
+      if (this.archivoPuedeCargarse(evento.srcElement.files[0])) {
+        if (this.archivos.length < 3) {
+          this.archivos.push(archivoNuevo);
+        } else {
+          Swal.fire({
+            type: 'error',
+            text: 'Solo puede añadir 3 archivos.'
+          });
+        }
+      }
+    }
+  }
+
+  // Validaciones
+  private archivoPuedeCargarse(archivo: File): boolean {
+    if (
+      !this.archivoYaSubido(archivo.name) &&
+      this.esImagen(archivo.type) &&
+      !this.tamanioSuperado(archivo.size)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private archivoYaSubido(nombreArchivo: string): boolean {
+    for (const archivo of this.archivos) {
+      // tslint:disable-next-line: triple-equals
+      if (archivo.nombreArchivo == nombreArchivo) {
+        Swal.fire({
+          type: 'error',
+          text: 'El archivo ' + nombreArchivo + ' ya está agregado.'
+        });
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private esImagen(tipoArchivo: string): boolean {
+    return tipoArchivo === '' || tipoArchivo === undefined
+      ? false
+      : tipoArchivo.startsWith('image') ||
+          tipoArchivo.startsWith('application');
+  }
+
+  private tamanioSuperado(tamanio: number): boolean {
+    tamanio = tamanio / 1024 / 1024;
+    if (tamanio > 8) {
+      Swal.fire({
+        type: 'error',
+        text: 'El archivo excede en tamaño.'
+      });
+      return true;
+    } else {
+      return false;
     }
   }
 

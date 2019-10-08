@@ -14,9 +14,9 @@ export class HomeComponent implements OnInit {
   constructor(private selectService: SelectService) {
     this.opcion = '';
 
-    this.selectService.getOrigenes().subscribe((data: any[]) => {
-      this.origenes = data;
-    });
+    // this.selectService.getOrigenes().subscribe((data: any[]) => {
+    //   this.origenes = data;
+    // });
 
     this.selectService.getTarifas().subscribe((data: any[]) => {
       this.tarifas = data;

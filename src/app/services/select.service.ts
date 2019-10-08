@@ -12,10 +12,10 @@ export class SelectService {
     this.webServiceUrl = 'http://localhost:8080/';
   }
 
-  getOrigenes() {
-    const url = this.webServiceUrl + 'origenes';
-    return this.http.get(url);
-  }
+  // getOrigenes() {
+  //   const url = this.webServiceUrl + 'origenes';
+  //   return this.http.get(url);
+  // }
 
   getTarifas() {
     const url = this.webServiceUrl + 'tarifas';
