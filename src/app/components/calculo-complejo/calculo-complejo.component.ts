@@ -194,7 +194,7 @@ export class CalculoComplejoComponent implements OnInit {
     if (!form.valid) {
       return;
     }
-    // TODO Falta multiplicar por el IVA si es una empresa o no
+    // TODO: Falta multiplicar por el IVA si es una empresa o no
     // y depende de si esta en Penisula y Baleareas o las Canarias
     console.log(this.peninsulaCanarias);
     let ahorroTotal = 0;

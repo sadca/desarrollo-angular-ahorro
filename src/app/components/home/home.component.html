@@ -40,6 +40,7 @@
         <p id="formulario"></p>
         <button *ngIf="opcion != 'imagen'" (click)="mostrarOpcion('imagen');scroll(abajo);"
             class="btn btn-block btn-danger">No tengo clara mi factura</button>
+        <br>
         <div class="card animated fadeInDown" *ngIf="opcion == 'sencillo'">
             <div class="card-body bg-light border-dark">
                 <app-calculo-simple [tiposContrato]="tiposContrato" [tarifas]="tarifas">

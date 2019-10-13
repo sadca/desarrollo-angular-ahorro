@@ -26,7 +26,7 @@ export class CalculoSimpleComponent implements OnInit {
   ngOnInit() {}
 
   cargarPotenciaEnergia() {
-    // TODO quitar el submit, como resetar el formulario
+    // TODO: quitar el submit, como resetar el formulario
     // Cargamos la potencia
     this.selectService
       .getPrecioPotenciaById(this.tarifa)

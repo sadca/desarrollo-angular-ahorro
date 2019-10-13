@@ -6,7 +6,7 @@
   "opcion.simple.des": "Esta opción te permitirá saber si puedes o no ahorrar en tu factura de la luz de una forma sencilla y rápida, rellena los campos necesarios y calcula tu factura",
   "opcion.completa.tit": "Opción Completa",
   "opcion.completa.des": "Esta opción te permitirá saber cuanto puedes ahorrar en tu factura de la luz de una forma precisa y completa, rellena los campos necesarios y calcula tu ahorro. Por ejemplo: 200€ anuales",
-  "opcion.imagen.tit": "Cálculo con Imagen",
+  "opcion.imagen.tit": "Cálculo con Archivo",
   "opcion.imagen.des": "Esta opción te permitirá saber cuanto puedes ahorrar en tu factura de la luz arrastrando una imagen o un archivo, nosotros analizaremos la factura y te contestaremos con un ahorro para tu factura. Por ejemplo: 200€ anuales",
   "precio.potencia": "Precio - Potencia",
   "contratada.potencia": "Potencia contratada",
