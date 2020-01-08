@@ -18,12 +18,12 @@ export class HomeComponent implements OnInit {
     //   this.origenes = data;
     // });
 
-    this.selectService.getTarifas().subscribe((data: any[]) => {
-      this.tarifas = data;
+    this.selectService.getTarifas().subscribe((data: any) => {
+      this.tarifas = data.tarifas;
     });
 
-    this.selectService.getTiposContrato().subscribe((data: any[]) => {
-      this.tiposContrato = data;
+    this.selectService.getTiposContrato().subscribe((data: any) => {
+      this.tiposContrato = data.tiposContrato;
     });
   }
 

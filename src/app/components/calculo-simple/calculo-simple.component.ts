@@ -30,15 +30,14 @@ export class CalculoSimpleComponent implements OnInit {
     // Cargamos la potencia
     this.selectService
       .getPrecioPotenciaById(this.tarifa)
-      .subscribe((data: PrecioPotencia) => {
-        this.pPoteData = data;
-        console.log(data);
+      .subscribe((data: any[]) => {
+        this.pPoteData.setPrecioPotencia(data[0]);
       });
     // Cargamos la energia
     this.selectService
       .getPrecioEnergiaById(this.tarifa)
-      .subscribe((data: PrecioEnergia) => {
-        this.pEnerData = data;
+      .subscribe((data: any[]) => {
+        this.pEnerData.setPrecioEnergia(data[0]);
       });
     this.pPoteUsu = new PrecioPotencia();
     this.pEnerUsu = new PrecioEnergia();

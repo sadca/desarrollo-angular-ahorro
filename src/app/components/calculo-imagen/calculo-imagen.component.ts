@@ -121,11 +121,8 @@ export class CalculoImagenComponent implements OnInit {
       .subscribe(
         (data: any) => {
           envioCorreo = data;
-          console.log(envioCorreo);
         },
         error => {
-          console.error('Ha ocurrido un error enviando el archivo');
-          console.error(error);
           Swal.close();
           Swal.fire({
             type: 'error',

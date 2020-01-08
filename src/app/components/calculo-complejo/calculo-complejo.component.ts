@@ -34,8 +34,8 @@ export class CalculoComplejoComponent implements OnInit {
     // Cargamos la potencia
     this.selectService
       .getPrecioPotenciaById(this.tarifa)
-      .subscribe((data: PrecioPotencia) => {
-        this.pPoteData = data;
+      .subscribe((data: any[]) => {
+        this.pPoteData.setPrecioPotencia(data[0]);
         if (this.pPoteData.p1) {
           this.pPoteData.p1 = this.redondeo(Number(this.pPoteData.p1 / 365), 6);
         }
@@ -58,8 +58,8 @@ export class CalculoComplejoComponent implements OnInit {
     // Cargamos la energia
     this.selectService
       .getPrecioEnergiaById(this.tarifa)
-      .subscribe((data: PrecioEnergia) => {
-        this.pEnerData = data;
+      .subscribe((data: any[]) => {
+        this.pEnerData.setPrecioEnergia(data[0]);
         if (this.pEnerData.p1) {
           this.pEnerData.p1 = this.redondeo(Number(this.pEnerData.p1), 6);
         }
